@@ -1,9 +1,8 @@
 ##  Spring과 react 를 활용한 To-do List 구현하기
-- Spring Version  
+- Spring Dependency
 ```
-    1.Runtime version: 17.0.
-    2.id 'org.springframework.boot' version '3.0.6'
-    3.id 'io.spring.dependency-management' version '1.1.0'
+    JDK version: 17.0.
+    'org.springframework.boot' version '3.0.6'
 ```
 - React dependency
 ```
