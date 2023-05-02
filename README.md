@@ -1,4 +1,4 @@
-## Self 로 Spring- react 를 To-do List 로 구현한 repository 입니다.
+##  Spring과 react 를 활용한 To-do List 구현하기
 - Spring Version  
 ```
     1.Runtime version: 17.0.
