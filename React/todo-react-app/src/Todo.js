@@ -11,23 +11,25 @@ const Todo = (props) =>{
     }
     const editItem = props.editItem;
     const editEventHandler = (e)=>{
-        item.title = e.target.value;
-        editItem();
+        setItem ({...item, title : e.target.value});
     };
     const turnOffReadOnly = () => {
         setReadOnly(false);
     }
     const turnOnReadOnly = (e) => {
-        if (e.key === 'Enter'){
-        setReadOnly(true);};
+        if (e.key === "Enter" ){
+        e.preventDefault();
+        setReadOnly(true);
+        editItem(item);
+    };
     }
-    const checkobxEvnetHandler = (e)=>{
+    const checkboxEventHandler = (e)=>{
         item.done = e.target.checked;
-        editItem();
+        editItem(item);
     }
     return(
         <ListItem>
-            <Checkbox checked={item.done} onChange={checkobxEvnetHandler}/>
+            <Checkbox checked={item.done} onChange={checkboxEventHandler}/>
             <ListItemText>
             <InputBase
                 inputProps={{"aria-label": "naked", readOnly: readOnly}}

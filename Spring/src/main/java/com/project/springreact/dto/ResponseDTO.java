@@ -1,6 +1,6 @@
 package com.project.springreact.dto;
 
-import com.project.springreact.persistence.Todo;
+import com.project.springreact.model.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ResponseDTO <T>{
     private String error;
     private List<T> data;
-    public static ResponseDTO<TodoDTO> convetDTO(List<Todo> entities){
+    public static ResponseDTO<TodoDTO> convertDTO(List<Todo> entities){
         List<TodoDTO> dtos = new ArrayList<>();
         for (Todo todo : entities){
             TodoDTO todoDTO = new TodoDTO(todo);

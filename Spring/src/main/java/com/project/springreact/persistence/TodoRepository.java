@@ -1,5 +1,6 @@
 package com.project.springreact.persistence;
 
+import com.project.springreact.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

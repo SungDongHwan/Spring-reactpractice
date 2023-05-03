@@ -1,6 +1,6 @@
 package com.project.springreact.service;
 
-import com.project.springreact.persistence.Todo;
+import com.project.springreact.model.Todo;
 import com.project.springreact.persistence.TodoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

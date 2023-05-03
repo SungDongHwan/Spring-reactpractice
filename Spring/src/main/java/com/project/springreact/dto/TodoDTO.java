@@ -1,6 +1,6 @@
 package com.project.springreact.dto;
 
-import com.project.springreact.persistence.Todo;
+import com.project.springreact.model.Todo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
