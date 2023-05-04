@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 모든 경로에 대해서
         registry.addMapping("/**")
                 // local host 3000 에대해서 허용
-                .allowedOrigins("http://localhost:3000", "http://10.125.121.220:5000", "http://10.125.121.222:8080")
+                .allowedOrigins("http://localhost:3000", "http://10.125.121.220:5000", "http://10.125.121.222:8080","http://localhost:8080")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true)

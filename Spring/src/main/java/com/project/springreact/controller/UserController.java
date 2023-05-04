@@ -1,5 +1,6 @@
 package com.project.springreact.controller;
 
+import com.project.springreact.dto.DataDTO;
 import com.project.springreact.dto.ResponseDTO;
 import com.project.springreact.dto.UserDTO;
 import com.project.springreact.model.User;
@@ -7,11 +8,15 @@ import com.project.springreact.security.TokenProvider;
 import com.project.springreact.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -21,6 +26,21 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TokenProvider tokenProvider;
+    @PostMapping("/test")
+    public ResponseEntity<?> tesetReact(@RequestBody UserDTO test){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String jsonBody = "{\"hello World!\"}";
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(jsonBody,headers);
+        String url = "http://10.125.121.207:3000";
+        String response =restTemplate.postForObject(url, entity, String.class);
+        return  ResponseEntity.ok(response);
+    }
+    @GetMapping("test1")
+    public String test2(String aaa){
+        return "hello World";
+    }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO dto){
         try {

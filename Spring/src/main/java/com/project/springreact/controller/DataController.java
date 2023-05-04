@@ -17,11 +17,12 @@ public class DataController {
     public ResponseEntity<?> testPythonResponse(@RequestBody DataDTO dto){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        String jsonBody = "{\"new_value\": 1400, \"new_termCode\": \"BNCT\"}";
+        String jsonBody = "{\"new_value\": 1300, \"new_termCode\": \"BNCT\"}";
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(jsonBody,headers);
         String url = "http://10.125.121.220:5001/api/congestion";
         String response =restTemplate.postForObject(url, entity, String.class);
         return ResponseEntity.ok(response);
     }
+
 }
