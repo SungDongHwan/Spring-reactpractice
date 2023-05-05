@@ -24,10 +24,6 @@ public class UserService {
         }
         return userRepo.save(userEntity);
     }
-    public User getByCredentials(final String username, final String password){
-        return userRepo.findByUsernameAndPassword(username,password);
-    }
-
     public User getByCredentials( String username, String password, PasswordEncoder encoder){
         final User originalUser = userRepo.findByUsername(username);
         // match 를 통해서 확인 - Bcrypt PAssword Encoder 는 같은 값을 코딩해도 더미를 붙혀 주므로 Salting 된것을

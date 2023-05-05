@@ -26,7 +26,7 @@ public class UserController {
     private TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @PostMapping("/test")
-    public ResponseEntity<?> tesetReact(@RequestBody UserDTO test){
+    public ResponseEntity<?> tesetReact(@RequestBody UserDTO dto){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         String jsonBody = "{\"hello World!\"}";
@@ -35,10 +35,6 @@ public class UserController {
         String url = "http://10.125.121.207:3000";
         String response =restTemplate.postForObject(url, entity, String.class);
         return  ResponseEntity.ok(response);
-    }
-    @GetMapping("test1")
-    public String test2(String aaa){
-        return "hello World";
     }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO dto){
