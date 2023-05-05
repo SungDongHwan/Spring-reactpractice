@@ -8,10 +8,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-@EnableWebSecurity
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@EnableWebSecurity(debug = true)
 @Configuration
 @Slf4j
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
     @Autowired
     private JwtAuthicationFilter jwtAuthicationFilter;
     @Bean
@@ -24,6 +27,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/auth/**").permitAll()
+                        .shouldFilterAllDispatcherTypes(false)
                         .anyRequest()
                         .authenticated()
                 );
@@ -32,7 +36,7 @@ public class WebSecurityConfig {
         //jwtAuthenticationFilter 실행한다.
         http.addFilterAfter(
                 jwtAuthicationFilter,
-                org.springframework.web.filter.CorsFilter.class
+                CorsFilter.class
         );
         return http.build();
     }

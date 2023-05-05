@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 // local host 3000 에대해서 허용
                 .allowedOrigins("http://localhost:3000", "http://10.125.121.220:5000", "http://10.125.121.222:8080","http://localhost:8080")
-                .allowedMethods("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(MAX_AGE_SECS);

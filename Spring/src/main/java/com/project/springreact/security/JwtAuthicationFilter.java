@@ -6,6 +6,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,7 +29,19 @@ public class JwtAuthicationFilter extends OncePerRequestFilter {
         try {
             String token = parserBearerToken(request);
             log.info("Filter is running...");
+            log.info("Token is.. "+token);
             //토큰 검사
+            String userId = tokenProvider.validateAndGetUserId(token);
+            log.info("User ID: {}", userId); // 사용자 ID 로그 출력
+            AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userId,
+                    null,
+                    AuthorityUtils.NO_AUTHORITIES
+            );
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+            securityContext.setAuthentication(authentication);
+            SecurityContextHolder.setContext(securityContext);
         }catch (Exception e){
             logger.error("Could not set user auth", e);
         }

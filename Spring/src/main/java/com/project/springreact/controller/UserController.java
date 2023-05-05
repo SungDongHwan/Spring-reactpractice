@@ -1,6 +1,5 @@
 package com.project.springreact.controller;
 
-import com.project.springreact.dto.DataDTO;
 import com.project.springreact.dto.ResponseDTO;
 import com.project.springreact.dto.UserDTO;
 import com.project.springreact.model.User;
@@ -12,11 +11,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -26,6 +24,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @PostMapping("/test")
     public ResponseEntity<?> tesetReact(@RequestBody UserDTO test){
         RestTemplate restTemplate = new RestTemplate();
@@ -49,7 +48,7 @@ public class UserController {
             }
             User user = User.builder()
                     .username(dto.getUsername())
-                    .password(dto.getPassword())
+                    .password(passwordEncoder.encode(dto.getPassword()))
                     .build();
             User registerdUser = userService.create(user);
             UserDTO responseUserDTO = UserDTO.builder()
@@ -68,7 +67,8 @@ public class UserController {
     public  ResponseEntity <?> authenticate(@RequestBody UserDTO dto){
         User user = userService.getByCredentials(
                 dto.getUsername(),
-                dto.getPassword()
+                dto.getPassword(),
+                passwordEncoder
         );
         if(user != null){
             final String token = tokenProvider.create(user);

@@ -38,6 +38,7 @@ public class TokenProvider {
         // 위조 되지 안항ㅆ으면 페이로드 리턴, 위조면 예외
         // 여기서 getBody 로 Body에 있는 Userid 를 가져온다.
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        log.debug("TokenProvider: token: {}", token);
         Key key = Keys.hmacShaKeyFor(keyBytes);
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
