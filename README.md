@@ -1,5 +1,5 @@
 # To-do List 
-- Spring-react를 이용한 Todo리스트 를 security 구현한 클론코딩입니다. 
+- Spring-react를 이용한 Todo리스트에서 Spring 3.0  Security 구현한 클론코딩입니다. 
 ---
 
 ## Front-end
