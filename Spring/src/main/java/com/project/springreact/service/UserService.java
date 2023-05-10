@@ -5,6 +5,7 @@ import com.project.springreact.persistence.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -33,4 +34,14 @@ public class UserService {
         }
         return null;
     }
+    public User getCurrentUser(OAuth2User principal) {
+        String email = principal.getAttribute("email");
+        User user = userRepo.findByUsername(email);
+        if (user == null) {
+            throw new RuntimeException("User not found.");
+        }
+        return user;
+    }
+
+
 }

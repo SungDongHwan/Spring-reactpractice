@@ -11,8 +11,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -81,4 +83,20 @@ public class UserController {
             return ResponseEntity.badRequest().body(responseDTO);
         }
     }
+    @GetMapping("/sociallogin")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal OAuth2User principal) {
+        try {
+            User user = userService.getCurrentUser(principal);
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .build();
+            return ResponseEntity.ok(responseUserDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 }
+
+
