@@ -53,12 +53,12 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 jwtAuthicationFilter,
                 CorsFilter.class
         );
-        http.oauth2Login(oauth2 -> oauth2
-                .loginPage("/oauth2/authorization/google")
-                .userInfoEndpoint(userinfo -> userinfo
-                        .userService(oauth2UserService)
-                )
-        );
+//        http.oauth2Login(oauth2 -> oauth2
+//                .loginPage("/oauth2/google")
+//                .userInfoEndpoint(userinfo -> userinfo
+//                        .userService(oauth2UserService)
+//                )
+//        );
         return http.build();
     }
 }

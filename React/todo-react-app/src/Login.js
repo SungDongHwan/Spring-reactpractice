@@ -2,6 +2,8 @@ import React from "react";
 import { signin } from "./ApiService";
 import { Link } from "react-router-dom";
 import { Container, Grid, TextField, Typography, Button } from "@mui/material";
+import { GoogleLogin } from "react-google-login";
+
 
 function Login() {
     const handleSubmit = (event) => {
@@ -12,6 +14,21 @@ function Login() {
         // api service 의 signin 메서드를 사용해 로그인
         signin({ "username": username, "password": password });
     };
+    const handleSocialLogin = (response) => {
+        // 서버에 전달
+        fetch('/oauth2/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: JSON.stringify(response)
+        })
+            .then(response => response.json())
+            .then(user => {
+                // 로그인 완료 처리
+            });
+    }
+
     return (
         <Container component="main" maxWidth="xs" style={{ margin: "8%" }}>
             <Grid container spacing={2}>
@@ -19,9 +36,6 @@ function Login() {
                     <Typography component="h1" variant="h5">
                         로그인
                     </Typography>
-                    <a href="http://localhost:8080/oauth2/google">
-                        구글 로그인 
-                    </a>
                 </Grid>
             </Grid>
             <form noValidate onSubmit={handleSubmit}>
@@ -59,6 +73,13 @@ function Login() {
                         color="primary">
                         로그인
                     </Button>
+                    <GoogleLogin
+                        clientId='155661665710-ojef8edbrh316c9gjn0ab6pou8mc4en3.apps.googleusercontent.com'
+                        buttonText="Log in with Google"
+                        onSuccess={handleSocialLogin}
+                        onFailure={handleSocialLogin}
+                    />
+
                 </Grid>
                 <Grid item>
                     <Link to="/signup" variant="body2">
